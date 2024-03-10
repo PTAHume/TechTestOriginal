@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace UserManagement.Models;
 
@@ -10,5 +11,6 @@ public class User
     public string Forename { get; set; } = default!;
     public string Surname { get; set; } = default!;
     public string Email { get; set; } = default!;
+    public DateTime? DateOfBirth { get; set; }
     public bool IsActive { get; set; }
 }
