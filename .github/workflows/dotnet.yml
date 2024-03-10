@@ -23,12 +23,16 @@ jobs:
         run: cd $GITHUB_WORKSPACE
 
       - name: Restore Packages
-        run: nuget restore ./Zoo_Simulator/Zoo_Simulator.sln
+        run: nuget restore ./UserManagement.sln
 
       - name: Build Solution
         run: |
-          msbuild.exe ./Zoo_Simulator/Zoo_Simulator.sln /p:platform="Any CPU" /p:configuration="Release"
+          msbuild.exe ./UserManagement.sln /p:platform="Any CPU" /p:configuration="Release"
         
-      - name: Run Tests
-        run: vstest.console.exe Zoo_Simulator_Tests\bin\Release\net8.0\Zoo_Simulator_Tests.dll
+      - name: Run Data Tests
+        run: vstest.console.exe UserManagement.Data.Tests\bin\Release\net8.0\UserManagement.Data.Tests.dll
+      - name: Run Services Tests
+        run: vstest.console.exe UserManagement.Services.Tests\bin\Release\net8.0\UserManagement.Services.Tests.dll
+      - name: Run Web Tests
+        run: vstest.console.exe UserManagement.Web.Tests\bin\Release\net8.0\UserManagement.Web.Tests.dll
  
