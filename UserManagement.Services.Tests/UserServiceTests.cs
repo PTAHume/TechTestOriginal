@@ -33,6 +33,68 @@ public class UserServiceTests
         result.Should().BeEmpty();
     }
 
+    [Fact]
+    public void UpdateUser_ShouldUpdateUserInDataContext()
+    {
+        // Arrange
+        var service = CreateService();
+        var user = new User
+        {
+            Id = 1,
+            Forename = "John",
+            Surname = "Doe",
+            Email = "johndoe@example.com",
+            IsActive = true
+        };
+
+        // Act
+        service.Update(user);
+
+        // Assert
+        _dataContext.Verify(s => s.Update(user), Times.Once);
+    }
+
+    [Fact]
+    public void DeleteUser_ShouldDeleteUserFromDataContext()
+    {
+        // Arrange
+        var service = CreateService();
+        var user = new User
+        {
+            Id = 1,
+            Forename = "John",
+            Surname = "Doe",
+            Email = "johndoe@example.com",
+            IsActive = true
+        };
+
+        // Act
+        service.Delete(user);
+
+        // Assert
+        _dataContext.Verify(s => s.Delete(user), Times.Once);
+    }
+
+    [Fact]
+    public void AddUser_ShouldAddUserToDataContext()
+    {
+        // Arrange
+        var service = CreateService();
+        var user = new User
+        {
+            Forename = "John",
+            Surname = "Doe",
+            Email = "johndoe@example.com",
+            IsActive = true
+        };
+
+        // Act
+        service.Create(user);
+
+        // Assert
+        _dataContext.Verify(s => s.Create(user), Times.Once);
+    }
+
     private IQueryable<User> SetupUsers(string forename = "Johnny", string surname = "User", string email = "juser@example.com", bool isActive = true)
     {
         var users = new[]
