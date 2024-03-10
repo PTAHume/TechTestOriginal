@@ -6,17 +6,16 @@ using UserManagement.Web.Models.Users;
 
 namespace UserManagement.WebMS.Controllers;
 
-public class UsersController : Controller
+public class UsersController(IUserService userService) : Controller
 {
-    private readonly IUserService _userService;
-
-    public UsersController(IUserService userService) => _userService = userService;
+    private readonly IUserService _userService = userService;
 
     [HttpGet]
     public ViewResult List(int filter = -1)
     {
-        var items = _userService.GetAll()
-            .Where(x => x.IsActive == (filter != -1 ? Convert.ToBoolean(filter) : x.IsActive))
+        var results = filter != -1 ? _userService.FilterByActive(Convert.ToBoolean(filter)) : _userService.GetAll();
+
+        var items = results
             .Select(p => new UserListItemViewModel
             {
                 Id = p.Id,
@@ -61,19 +60,7 @@ public class UsersController : Controller
 
     public IActionResult Edit(int id)
     {
-        var user = _userService.GetById(id);
-        if (user == null)
-        {
-            return NotFound();
-        }
-        return View(new UserListItemViewModel
-        {
-            Id = user.Id,
-            Forename = user.Forename,
-            Surname = user.Surname,
-            Email = user.Email,
-            IsActive = user.IsActive
-        });
+        return Details(id);
     }
 
     [HttpPost]
@@ -96,6 +83,7 @@ public class UsersController : Controller
         }
         return View(model);
     }
+
 
     public IActionResult Details(int id)
     {
