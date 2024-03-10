@@ -20,6 +20,19 @@ public class UserServiceTests
         result.Should().BeSameAs(users);
     }
 
+    [Fact]
+    public void FilterUsers_ShouldBeEmpty()
+    {
+        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
+        var service = CreateService();
+
+        // Act: Invokes the method under test with the arranged parameters.
+        var result = service.FilterByActive(false);
+
+        // Assert: Verifies that the action of the method under test behaves as expected.
+        result.Should().BeEmpty();
+    }
+
     private IQueryable<User> SetupUsers(string forename = "Johnny", string surname = "User", string email = "juser@example.com", bool isActive = true)
     {
         var users = new[]
@@ -41,5 +54,6 @@ public class UserServiceTests
     }
 
     private readonly Mock<IDataContext> _dataContext = new();
+
     private UserService CreateService() => new(_dataContext.Object);
 }
