@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Mvc;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
@@ -61,7 +61,6 @@ public class UserControllerTests
         result.Should().BeOfType<ViewResult>()
             .Which.Model.Should().BeSameAs(model);
     }
-
 
     [Fact]
     public void Edit_WhenUserDoesNotExist_ReturnsNotFound()

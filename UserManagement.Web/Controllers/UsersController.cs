@@ -23,7 +23,7 @@ public class UsersController(IUserService userService) : Controller
                 Surname = p.Surname,
                 Email = p.Email,
                 IsActive = p.IsActive,
-                 DateOfBirth = p.DateOfBirth
+                DateOfBirth = p.DateOfBirth
             });
 
         var model = new UserListViewModel
@@ -86,7 +86,6 @@ public class UsersController(IUserService userService) : Controller
         }
         return View(model);
     }
-
 
     public IActionResult Details(int id)
     {

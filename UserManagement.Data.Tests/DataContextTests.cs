@@ -56,7 +56,7 @@ public class DataContextTests
             Forename = "Edit User",
             Surname = "User Edit",
             Email = "editauser@example.com",
-            IsActive = false            
+            IsActive = false
         };
 
         entity.Forename = edit.Forename;
