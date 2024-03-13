@@ -20,3 +20,19 @@ html {
 body {
     margin-bottom: 60px;
 }
+
+.ts-startRow {
+    outline: none;
+    pointer-events: none;
+    outline: none;
+    pointer-events: none;
+    border-width: 0px;
+}
+
+.tablesorter {
+    text-align: center
+}
+
+.tablesorter-blue .tablesorter-filter-row .disabled {
+    display: none;
+}

@@ -99,14 +99,14 @@ public class UsersController : Controller
             {
                 return NotFound();
             }
-            _loggerService.LogAction(user, "Updated, Details Before");
+            _loggerService.LogAction(user, "Updated (Details Before)");
             user.Forename = model.Forename;
             user.Surname = model.Surname;
             user.Email = model.Email;
             user.IsActive = model.IsActive;
             user.DateOfBirth = model.DateOfBirth;
             _userService.Update(user);
-            _loggerService.LogAction(user, "Updated, Details After");
+            _loggerService.LogAction(user, "Updated (Details After)");
             return RedirectToAction("List");
         }
         return View(model);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using UserManagement.Models;
 
@@ -29,6 +30,19 @@ public class DataContext : DbContext, IDataContext
             new User { Id = 11, DateOfBirth = new DateTime(1982, 12, 12, 0, 0, 0, DateTimeKind.Utc), Forename = "Robin", Surname = "Feld", Email = "rfeld@example.com", IsActive = true },
         ];
 
+        Log[] logData = data
+            .Select((user, Index) =>
+                    new Log
+                    {
+                        Action = "Added",
+                        Id = Index + 1,
+                        Details = JsonSerializer.Serialize(user),
+                        TimeStamp = DateTime.UtcNow,
+                        UserId = user.Id
+                    }
+                    ).ToArray();
+
+        _ = modelBuilder.Entity<Log>().HasData(logData);
         _ = modelBuilder.Entity<User>().HasData(data);
     }
 

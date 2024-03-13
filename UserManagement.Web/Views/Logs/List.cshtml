@@ -1,14 +1,32 @@
 ﻿@model UserManagement.Web.Models.Logs.LogsListViewModel
 
 <h2>Logs</h2>
-<div class="table-responsive">
-    <table class="table table-striped">
+
+<div id="pager" class="pager">
+    <form>
+        <img src="~/lib/tablesorter/dist/css/images/next.png" class="first" />
+        <img src="~/lib/tablesorter/dist/css/images/prev.png" class="prev" />
+        <!-- the "pagedisplay" can be any element, including an input -->
+        <span class="pagedisplay" data-pager-output-filtered="{startRow:input} &ndash; {endRow} / {filteredRows} of {totalRows} total rows"></span>
+        <img src="~/lib/tablesorter/dist/css/images/next.png" class="next" />
+        <img src="~/lib/tablesorter/dist/css/images/last.png" class="last" />
+        <select class="pagesize">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="all">All Rows</option>
+        </select>
+    </form>
+</div>
+
+<table class="table tablesorter">
         <thead>
             <tr>
                 <th>TimeStamp</th>
                 <th>UserId</th>
                 <th>Action</th>
-                <th></th>
+                <th data-sorter="false" data-filter="false"></th>
             </tr>
         </thead>
         <tbody>
@@ -31,4 +49,4 @@
             }
         </tbody>
     </table>
-</div>
+

@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/helloworld.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.theme.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.structure.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/tablesorter/dist/css/theme.blue.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/tablesorter/dist/css/jquery.tablesorter.pager.min.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -44,9 +49,14 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="~/lib/tablesorter/dist/js/jquery.tablesorter.js" asp-append-version="true"></script>
+    <script src="~/lib/tablesorter/dist/js/jquery.tablesorter.widgets.js" asp-append-version="true"></script>
+    <script src="~/lib/tablesorter/dist/js/widgets/widget-scroller.min.js" asp-append-version="true"></script>
+    <script src="~/lib/tablesorter/dist/js/jquery.tablesorter.pager.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
