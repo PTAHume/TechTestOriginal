@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(function () {
     let pagerOptions = {
         // target the pager markup - see the HTML block below
         container: $(".pager"),
