@@ -1,0 +1,36 @@
+﻿@model UserManagement.Web.Models.Logs.LogsListItemViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Log Details</h1>
+
+<div>
+    <h4>Log Details: @Model.Id</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Action)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Action)
+        </dd>
+        @await Html.PartialAsync("../Shared/UserDetails.cshtml", Model.Details)
+    </dl>
+</div>
+<div>
+    <a asp-action="List">Back to List</a>
+</div>
