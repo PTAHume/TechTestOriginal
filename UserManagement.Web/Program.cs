@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using UserManagement.Services.Domain.Implementations;
+using UserManagement.Services.Domain.Interfaces;
 using Westwind.AspNetCore.Markdown;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +11,10 @@ builder.Services
     .AddDataAccess()
     .AddDomainServices()
     .AddMarkdown()
+    .AddScoped<ILoggerService, LoggerService>()
     .AddControllersWithViews();
 
 var app = builder.Build();
-
 app.UseMarkdown();
 
 app.UseHsts();

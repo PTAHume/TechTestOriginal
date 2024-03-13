@@ -6,12 +6,16 @@ using UserManagement.Web.Models.Users;
 
 namespace UserManagement.WebMS.Controllers;
 
-public class UsersController(IUserService userService) : Controller
+public class UsersController : Controller
 {
-    private readonly IUserService _userService = userService;
+    private readonly IUserService _userService;
+    private readonly ILoggerService _loggerService;
+
+    public UsersController(IUserService userService, ILoggerService loggerService)
+        => (_userService, _loggerService) = (userService, loggerService);
 
     [HttpGet]
-    public ViewResult List(int filter = -1)
+    public ViewResult List(long filter = -1)
     {
         var results = filter != -1 ? _userService.FilterByActive(Convert.ToBoolean(filter)) : _userService.GetAll();
 
@@ -32,6 +36,24 @@ public class UsersController(IUserService userService) : Controller
         };
 
         return View(model);
+    }
+
+    public IActionResult Details(long id)
+    {
+        var user = _userService.GetById(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return View(new UserListItemViewModel
+        {
+            Id = user.Id,
+            Forename = user.Forename,
+            Surname = user.Surname,
+            Email = user.Email,
+            IsActive = user.IsActive,
+            DateOfBirth = user.DateOfBirth,
+        });
     }
 
     public IActionResult Create()
@@ -55,12 +77,13 @@ public class UsersController(IUserService userService) : Controller
                 DateOfBirth = model.DateOfBirth
             };
             _userService.Create(user);
+            _loggerService.LogAction(user, "User created");
             return RedirectToAction("List");
         }
         return View(model);
     }
 
-    public IActionResult Edit(int id)
+    public IActionResult Edit(long id)
     {
         return Details(id);
     }
@@ -71,68 +94,39 @@ public class UsersController(IUserService userService) : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = _userService.GetById((int)model.Id);
+            var user = _userService.GetById(model.Id);
             if (user == null)
             {
                 return NotFound();
             }
+            _loggerService.LogAction(user, "Updated, Details Before");
             user.Forename = model.Forename;
             user.Surname = model.Surname;
             user.Email = model.Email;
             user.IsActive = model.IsActive;
             user.DateOfBirth = model.DateOfBirth;
             _userService.Update(user);
+            _loggerService.LogAction(user, "Updated, Details After");
             return RedirectToAction("List");
         }
         return View(model);
     }
 
-    public IActionResult Details(int id)
-    {
-        var user = _userService.GetById(id);
-        if (user == null)
-        {
-            return NotFound();
-        }
-        return View(new UserListItemViewModel
-        {
-            Id = user.Id,
-            Forename = user.Forename,
-            Surname = user.Surname,
-            Email = user.Email,
-            IsActive = user.IsActive,
-            DateOfBirth = user.DateOfBirth,
-        });
-    }
-
     [HttpGet]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(long id)
     {
-        var user = _userService.GetById(id);
-        if (user == null)
-        {
-            return NotFound();
-        }
-        var model = new UserListItemViewModel
-        {
-            Id = user.Id,
-            Forename = user.Forename,
-            Surname = user.Surname,
-            Email = user.Email,
-            IsActive = user.IsActive,
-            DateOfBirth = user.DateOfBirth,
-        };
-        return View(model);
+        return Details(id);
     }
 
     [HttpPost]
     public IActionResult Delete(UserListItemViewModel model)
     {
-        var user = _userService.GetById((int)model.Id);
+        var user = _userService.GetById(model.Id);
         if (user == null)
         {
             return NotFound();
         }
+        _loggerService.LogAction(user, "Deleted");
         _userService.Delete(user);
         return RedirectToAction("List");
     }

@@ -5,10 +5,6 @@ namespace UserManagement.Services.Domain.Interfaces;
 
 public interface IUserService
 {
-    void Create(User user);
-
-    void Delete(User user);
-
     /// <summary>
     /// Return users by active state
     /// </summary>
@@ -29,9 +25,13 @@ public interface IUserService
     /// <returns>
     ///   Selected User if found otherwise returns null.
     /// </returns>
-    User? GetById(int id);
+    User? GetById(long id);
+
+    void Create(User user);
 
     /// <summary>Updates the specified user.</summary>
     /// <param name="user">The user.</param>
     void Update(User user);
+
+    void Delete(User user);
 }
