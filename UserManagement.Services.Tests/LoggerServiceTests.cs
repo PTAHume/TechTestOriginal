@@ -22,7 +22,7 @@ public class LoggerServiceTests
     }
 
     [Fact]
-    public void FilterLogs_ShouldBeEmpty()
+    public void FilterLogs_ShoulHaveCorrectItem()
     {
         // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
         var service = CreateService();
