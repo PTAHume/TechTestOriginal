@@ -25,6 +25,7 @@ public class UserServiceTests
     {
         // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
         var service = CreateService();
+        SetupUsers();
 
         // Act: Invokes the method under test with the arranged parameters.
         var result = service.FilterByActive(false);

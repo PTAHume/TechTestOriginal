@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
@@ -44,6 +45,26 @@ public class UserControllerTests
         // Assert
         result.Should().BeOfType<RedirectToActionResult>()
             .Which.ActionName.Should().Be("List");
+    }
+
+    [Fact]
+    public void List_WhenServicFilteredReturnsAUser_ModelMustContainAUser()
+    {
+        // Arrange
+        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
+        var controller = CreateController();
+        var users = SetupUsers();
+
+        // Act: Invokes the method under test with the arranged parameters.
+        var result = controller.List(1);
+
+        // Assert: Verifies that the action of the method under test behaves as expected.
+        result.Model
+            .Should().BeOfType<UserListViewModel>()
+            .Which.Items.Should().BeEquivalentTo(users);
+        result.Model
+          .Should().BeOfType<UserListViewModel>()
+          .Which.Items.Should().HaveCount(1);
     }
 
     [Fact]
@@ -211,6 +232,10 @@ public class UserControllerTests
         _userService
             .Setup(s => s.GetAll())
             .Returns(users);
+
+        _userService
+         .Setup(s => s.FilterByActive(isActive))
+         .Returns(users.Where(x => x.IsActive == isActive));
 
         return users;
     }

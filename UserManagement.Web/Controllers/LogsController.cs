@@ -12,9 +12,9 @@ public class LogsController : Controller
     public LogsController(ILoggerService loggerService) => (_loggerService) = (loggerService);
 
     [HttpGet]
-    public ViewResult List()
+    public ViewResult List(long filter = -1)
     {
-        var logs = _loggerService.GetAll();
+        var logs = filter != -1 ? _loggerService.FilterByUser(filter) : _loggerService.GetAll();
         var model = new LogsListViewModel
         {
             Items = logs.Select(x => new LogsListItemViewModel

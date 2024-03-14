@@ -12,6 +12,7 @@
                  <th>DOB</th>
                 <th>Email</th>
                 <th>Account Active</th>
+                 <th style="width: 1px;"></th>
                 <th style="width: 1px;"></th>
             </tr>
         </thead>
@@ -37,6 +38,11 @@
                     <td>
                         @(item.IsActive ? "Yes" : "No")
                     </td>
+                     <td>
+                       <div>
+                            <a asp-controller="Logs" class="btn btn-secondary"  asp-action="List" asp-route-filter="@item.Id">Logs</a>
+                       </div>
+                    </td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btnToggleActions">
@@ -44,7 +50,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnToggleActions">
                                 <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Details</a> </li>
-                                <li><a class="dropdown-item"  asp-action="Edit" asp-route-id="@item.Id">Edit</a> </li
+                                <li><a class="dropdown-item"  asp-action="Edit" asp-route-id="@item.Id">Edit</a> </li>
                                 <li><a class="dropdown-item"  asp-action="Delete" asp-route-id="@item.Id">Delete</a></li>
                             </ul>
                         </div>

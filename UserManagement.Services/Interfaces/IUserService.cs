@@ -27,11 +27,15 @@ public interface IUserService
     /// </returns>
     User? GetById(long id);
 
+    /// <summary>Creates the specified user.</summary>
+    /// <param name="user">The user.</param>
     void Create(User user);
 
     /// <summary>Updates the specified user.</summary>
     /// <param name="user">The user.</param>
     void Update(User user);
 
+    /// <summary>Deletes the specified user.</summary>
+    /// <param name="user">The user.</param>
     void Delete(User user);
 }

@@ -22,6 +22,21 @@ public class LoggerServiceTests
     }
 
     [Fact]
+    public void FilterLogs_ShouldBeEmpty()
+    {
+        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
+        var service = CreateService();
+        var logs = SetupLogs(DateTime.UtcNow);
+
+        // Act: Invokes the method under test with the arranged parameters.
+        var result = service.FilterByUser(1);
+
+        // Assert: Verifies that the action of the method under test behaves as expected.
+        result.Should().HaveCount(1);
+        result.Should().Contain(logs);
+    }
+
+    [Fact]
     public void AddLog_ShouldAddLogToDataContext()
     {
         // Arrange

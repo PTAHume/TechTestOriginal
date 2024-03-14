@@ -39,7 +39,7 @@ public class DataContextTests
         {
             Action = "Test",
             Details = "User Data",
-            TimeStamp = System.DateTime.UtcNow,
+            TimeStamp = DateTime.UtcNow,
         };
         context.Create(entity);
 

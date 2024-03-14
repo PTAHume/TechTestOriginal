@@ -12,11 +12,17 @@ public class LoggerService(IDataContext dataAccess) : ILoggerService
 {
     private readonly IDataContext _dataAccess = dataAccess;
 
+   
     public IEnumerable<Log> GetAll() => _dataAccess.GetAll<Log>();
 
     public Log? GetById(long id)
     {
         return _dataAccess.GetAll<Log>().SingleOrDefault(x => x.Id == id);
+    }
+
+    public IEnumerable<Log> FilterByUser(long userId)
+    {
+        return _dataAccess.GetAll<Log>().Where(x => x.UserId == userId);
     }
 
     public void LogAction(User user, string action)
